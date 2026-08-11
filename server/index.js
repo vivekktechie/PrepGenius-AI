@@ -654,7 +654,7 @@ app.post('/api/auth/send-otp', async (req, res) => {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     otpStore.set(email, { otp, expires: Date.now() + 600000 });
     const mailOptions = {
-      from: `"PrepGenius AI" <${GMAIL_USER}>`,`
+      from: `"PrepGenius AI" <${GMAIL_USER}>`,
       to: email,
       subject: 'Your PrepGenius AI Verification Code',
       html: `
@@ -901,7 +901,7 @@ app.post('/api/auth/forgot-password', async (req, res) => {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     otpStore.set(email, { otp, expires: Date.now() + 600000 });
     const mailOptions = {
-      from: `"PrepGenius AI" <${GMAIL_USER}>`,`
+      from: `"PrepGenius AI" <${GMAIL_USER}>`,
       to: email,
       subject: 'Password Reset Code — PrepGenius AI',
       html: `
