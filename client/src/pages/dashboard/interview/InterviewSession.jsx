@@ -36,6 +36,11 @@ const InterviewSession = ({ data }) => {
   const detectionIntervalRef = useRef(null);
 
   // Initialize Camera Feed
+  // Cancel speech on unmount (e.g. user navigates away mid-session)
+  useEffect(() => {
+    return () => { synthRef.current.cancel(); };
+  }, []);
+
   useEffect(() => {
     const initCamera = async () => {
       try {
@@ -165,6 +170,7 @@ const InterviewSession = ({ data }) => {
 
   const finishInterview = async () => {
     // Protocol Termination: Force stop all media sensors
+    synthRef.current.cancel();
     if (stream) {
       stream.getTracks().forEach(track => {
         track.stop();
