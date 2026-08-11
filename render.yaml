@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: prepgenius-ai-server
+    runtime: node
+    region: oregon
+    plan: free
+    rootDir: server
+    buildCommand: npm install
+    startCommand: node index.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        generateValue: false
+      - key: TIDB_HOST
+        sync: false
+      - key: TIDB_USER
+        sync: false
+      - key: TIDB_PASSWORD
+        sync: false
+      - key: TIDB_PORT
+        value: "4000"
+      - key: TIDB_DB_NAME
+        value: test
+      - key: JWT_SECRET
+        sync: false
+      - key: GOOGLE_API_KEY
+        sync: false
+      - key: GMAIL_APP_PASSWORD
+        sync: false
+      - key: CLIENT_URL
+        sync: false
+      - key: SERVER_URL
+        sync: false
