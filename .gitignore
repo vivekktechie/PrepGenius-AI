@@ -1,0 +1,46 @@
+# ===================================================
+# PrepGenius AI — Root .gitignore
+# ===================================================
+
+# --- Secrets (NEVER commit these) ---
+.env
+.env.local
+.env.production
+.env.development.local
+.env.test.local
+.env.production.local
+
+# --- Node.js ---
+node_modules/
+dist/
+.cache/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+
+# --- Uploads (ephemeral on Render) ---
+server/uploads/*
+!server/uploads/.gitkeep
+
+# --- Build output ---
+client/dist/
+*.log
+debug.log
+
+# --- macOS ---
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# --- IDE ---
+.vscode/
+.idea/
+*.swp
+*.swo

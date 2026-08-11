@@ -1,0 +1,154 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-inter: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  font-family: var(--font-inter);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #020617;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Gradient text */
+.text-gradient {
+  background: linear-gradient(135deg, #00f5ff 0%, #0ea5e9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cyan-glow {
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+}
+
+.text-cyan-glow {
+  text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* High-Fidelity PDF Intelligence Report Styles */
+@media print {
+  /* Enforce Dark Theme for Printing */
+  html, body {
+    background: #020617 !important;
+    color: white !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide UI Elements */
+  nav, 
+  aside, 
+  button,
+  header,
+  footer,
+  .no-print,
+  [role="navigation"],
+  [role="complementary"] {
+    display: none !important;
+  }
+
+  /* Layout Optimization */
+  main, 
+  .print-container {
+    margin: 0 !important;
+    padding: 20px !important;
+    width: 100% !important;
+    max-width: none !important;
+    background: #020617 !important;
+  }
+
+  .glass-dark {
+    background: rgba(15, 23, 42, 0.95) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+  }
+
+  /* Typography & Colors */
+  h1, h2, h3, h4, span, p {
+    color: white !important;
+  }
+
+  .text-cyan-400 { color: #22d3ee !important; }
+  .text-emerald-400 { color: #10b981 !important; }
+  .text-amber-500 { color: #f59e0b !important; }
+  .text-rose-500 { color: #f43f5e !important; }
+  .text-slate-400 { color: #94a3b8 !important; }
+  .text-slate-500, .text-slate-600 { color: #64748b !important; }
+
+  /* Page Breaks */
+  .print-break-before {
+    page-break-before: always !important;
+  }
+
+  /* Watermark System */
+  .print-watermark {
+    display: block !important;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    font-size: 80px;
+    font-weight: 900;
+    color: rgba(34, 211, 238, 0.05) !important;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: -1;
+    text-transform: uppercase;
+    letter-spacing: 20px;
+    font-family: sans-serif;
+  }
+
+  /* Hide Scrollbars */
+  ::-webkit-scrollbar {
+    display: none !important;
+  }
+}
+
+.print-watermark {
+  display: none;
+}
