@@ -358,10 +358,11 @@ const isAdmin = async (req, res, next) => {
 };
 
 // --- SERVICES ---
+const GMAIL_USER = process.env.GMAIL_USER || process.env.GMAIL_APP_USER;
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'aiprepgenius@gmail.com',
+    user: GMAIL_USER,
     pass: process.env.GMAIL_APP_PASSWORD
   }
 });
@@ -653,7 +654,7 @@ app.post('/api/auth/send-otp', async (req, res) => {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     otpStore.set(email, { otp, expires: Date.now() + 600000 });
     const mailOptions = {
-      from: '"PrepGenius AI" <aiprepgenius@gmail.com>',
+      from: `"PrepGenius AI" <${GMAIL_USER}>`,`
       to: email,
       subject: 'Your PrepGenius AI Verification Code',
       html: `
@@ -710,6 +711,7 @@ app.post('/api/auth/send-otp', async (req, res) => {
     await transporter.sendMail(mailOptions);
     res.json({ success: true, message: 'Neural key transmitted.' });
   } catch (error) {
+    console.error('OTP send error:', error.message);
     res.status(500).json({ error: 'Transmission failure.' });
   }
 });
@@ -899,7 +901,7 @@ app.post('/api/auth/forgot-password', async (req, res) => {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     otpStore.set(email, { otp, expires: Date.now() + 600000 });
     const mailOptions = {
-      from: '"PrepGenius AI" <aiprepgenius@gmail.com>',
+      from: `"PrepGenius AI" <${GMAIL_USER}>`,`
       to: email,
       subject: 'Password Reset Code — PrepGenius AI',
       html: `
