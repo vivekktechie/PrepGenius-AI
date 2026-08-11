@@ -32,6 +32,7 @@ const InterviewSession = ({ data }) => {
 
   const recognitionRef = useRef(null);
   const synthRef = useRef(window.speechSynthesis);
+  const abortedRef = useRef(false);
   const videoRef = useRef(null);
   const detectionIntervalRef = useRef(null);
 
@@ -113,7 +114,7 @@ const InterviewSession = ({ data }) => {
   }, []);
 
   const speak = useCallback((text) => {
-    if (!synthRef.current) return;
+    if (!synthRef.current || abortedRef.current) return;
     
     // Stop any current speech
     synthRef.current.cancel();
@@ -170,7 +171,11 @@ const InterviewSession = ({ data }) => {
 
   const finishInterview = async () => {
     // Protocol Termination: Force stop all media sensors
+    abortedRef.current = true;
     synthRef.current.cancel();
+    // Chrome bug workaround: cancel multiple times
+    const cancelInterval = setInterval(() => { window.speechSynthesis.cancel(); }, 50);
+    setTimeout(() => clearInterval(cancelInterval), 500);
     if (stream) {
       stream.getTracks().forEach(track => {
         track.stop();
